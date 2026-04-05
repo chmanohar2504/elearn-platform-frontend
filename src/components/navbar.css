@@ -98,95 +98,42 @@
   box-shadow: 0 0 12px rgba(46, 204, 113, 0.25);
 }
 
-/* ── Hamburger ── */
-.nav-hamburger {
-  display: none; flex-direction: column;
-  justify-content: center; gap: 5px;
-  width: 36px; height: 36px;
-  background: none; border: none; cursor: pointer;
-  padding: 4px; border-radius: 8px;
-  transition: background 0.22s;
-}
-.nav-hamburger:hover { background: rgba(255,255,255,0.05); }
-.nav-hamburger span {
-  display: block; height: 2px;
-  background: #6fa876; border-radius: 2px;
-  transition: all 0.25s ease; transform-origin: center;
-}
-.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: #2ecc71; }
-.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: #2ecc71; }
+/* ── Hamburger — completely hidden always ── */
+.nav-hamburger { display: none !important; }
 
-/* ── Mobile Menu ── */
-.nav-mobile-menu {
-  position: fixed;
-  top: 64px; left: 0; right: 0;
-  background: rgba(8, 12, 9, 0.98);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(26, 46, 28, 0.80);
-  flex-direction: column;
-  padding: 12px 20px 24px;
-  gap: 4px;
-  z-index: 9998;
-  opacity: 0;
-  transform: translateY(-8px);
-  pointer-events: none;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  display: flex;
-  visibility: hidden;
-}
-.nav-mobile-menu.open {
-  opacity: 1;
-  transform: none;
-  pointer-events: all;
-  visibility: visible;
-}
+/* ── Mobile Menu — completely hidden always ── */
+.nav-mobile-menu  { display: none !important; visibility: hidden !important; }
+.nav-mobile-link  { display: none !important; }
+.nav-mobile-theme { display: none !important; }
 
-.nav-mobile-link {
-  background: none; border: none; cursor: pointer;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px; font-weight: 500; color: #6fa876;
-  padding: 12px 16px; border-radius: 10px;
-  text-align: left;
-  transition: color 0.20s, background 0.20s; width: 100%;
-}
-.nav-mobile-link:hover { color: #e4ede5; background: rgba(255,255,255,0.05); }
-.nav-mobile-link.active { color: #2ecc71; background: rgba(46,204,113,0.08); }
-
-/* ── Mobile theme toggle button ── */
-.nav-mobile-theme {
-  background: none;
-  border: 1px solid rgba(26, 46, 28, 0.90);
-  border-radius: 10px;
-  color: #6fa876;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 12px 16px;
-  cursor: pointer;
-  text-align: left;
-  margin-top: 8px;
-  transition: all 0.22s ease;
-  width: 100%;
-}
-.nav-mobile-theme:hover {
-  color: #2ecc71;
-  border-color: rgba(46, 204, 113, 0.40);
-  background: rgba(46, 204, 113, 0.08);
-}
-
-/* ── Responsive ── */
+/* ── Responsive — show all links on ALL screen sizes ── */
 @media (max-width: 768px) {
-  .navbar        { padding: 0 20px; }
-  .nav-links     { display: none; }
-  .nav-icon-btn  { display: none; }
-  .nav-avatar    { display: none; }
-  .nav-hamburger { display: flex; }
+  .navbar     { padding: 0 16px; }
+  .nav-links  { display: flex; gap: 2px; }
+  .nav-link   { font-size: 11px; padding: 6px 8px; }
+  .nav-avatar { display: flex; }
+  .nav-icon-btn { display: flex; }
+}
+
+@media (max-width: 600px) {
+  .navbar        { padding: 0 10px; }
+  .nav-link      { font-size: 10px; padding: 5px 6px; }
+  .nav-logo-text { font-size: 15px; }
+  .nav-icon-btn  { width: 30px; height: 30px; }
+  .nav-avatar    { width: 30px; height: 30px; font-size: 12px; }
 }
 
 @media (max-width: 480px) {
-  .navbar          { padding: 0 16px; height: 58px; }
-  .nav-logo-text   { font-size: 16px; }
-  .nav-mobile-menu { top: 58px; }
+  .navbar        { padding: 0 8px; height: 56px; }
+  .nav-link      { font-size: 9px; padding: 4px 5px; border-radius: 6px; }
+  .nav-logo-text { font-size: 13px; }
+  .nav-logo-icon { width: 26px; height: 26px; }
+  .nav-icon-btn  { width: 28px; height: 28px; }
+  .nav-avatar    { width: 28px; height: 28px; font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  .navbar        { padding: 0 6px; }
+  .nav-link      { font-size: 8px; padding: 4px 4px; }
+  .nav-logo-text { display: none; }
 }
