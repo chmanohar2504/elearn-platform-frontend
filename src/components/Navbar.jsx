@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./navbar.css";
 
 const Navbar = ({ onNavigate, activePage, loggedIn }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("ls_darkmode") !== "false";
+  });
 
   const allLinks = [
     { label: "Home",      page: "home",      protected: false },
@@ -15,6 +18,48 @@ const Navbar = ({ onNavigate, activePage, loggedIn }) => {
 
   const links = allLinks.filter(l => !l.protected || loggedIn);
 
+  /* ── close menu on outside click ── */
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (!e.target.closest(".navbar")) setMenuOpen(false);
+    };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  /* ── dark / light mode ── */
+  useEffect(() => {
+    localStorage.setItem("ls_darkmode", darkMode);
+    const root = document.documentElement;
+    if (darkMode) {
+      root.style.setProperty("--bg",      "#080c09");
+      root.style.setProperty("--bg2",     "#0a110b");
+      root.style.setProperty("--card",    "#0f1810");
+      root.style.setProperty("--card2",   "#111a12");
+      root.style.setProperty("--border",  "#1a2e1c");
+      root.style.setProperty("--border2", "#1f3522");
+      root.style.setProperty("--text",    "#e4ede5");
+      root.style.setProperty("--text2",   "#6fa876");
+      root.style.setProperty("--text3",   "#3a5c40");
+      root.style.setProperty("--green",   "#2ecc71");
+      root.style.setProperty("--green2",  "#1aba60");
+      document.body.style.background = "#080c09";
+    } else {
+      root.style.setProperty("--bg",      "#f0f7f1");
+      root.style.setProperty("--bg2",     "#e4f0e5");
+      root.style.setProperty("--card",    "#ffffff");
+      root.style.setProperty("--card2",   "#f5faf6");
+      root.style.setProperty("--border",  "#c8e6c9");
+      root.style.setProperty("--border2", "#a5d6a7");
+      root.style.setProperty("--text",    "#1a2e1a");
+      root.style.setProperty("--text2",   "#2e7d32");
+      root.style.setProperty("--text3",   "#388e3c");
+      root.style.setProperty("--green",   "#1aba60");
+      root.style.setProperty("--green2",  "#0e9e50");
+      document.body.style.background = "#f0f7f1";
+    }
+  }, [darkMode]);
+
   const handleNav = (page) => {
     setMenuOpen(false);
     if (!loggedIn && page !== "home") {
@@ -24,11 +69,16 @@ const Navbar = ({ onNavigate, activePage, loggedIn }) => {
     onNavigate(page);
   };
 
+  const toggleDark = () => setDarkMode(!darkMode);
+
   return (
     <nav className="navbar">
+
+      {/* ── Logo ── */}
       <div className="nav-logo" onClick={() => handleNav("home")}>
         <div className="nav-logo-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="18" height="18">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            strokeWidth="2" width="18" height="18">
             <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
             <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
           </svg>
@@ -38,6 +88,7 @@ const Navbar = ({ onNavigate, activePage, loggedIn }) => {
         </span>
       </div>
 
+      {/* ── Desktop Links ── */}
       <ul className="nav-links">
         {links.map((l) => (
           <li key={l.page}>
@@ -52,28 +103,57 @@ const Navbar = ({ onNavigate, activePage, loggedIn }) => {
         ))}
       </ul>
 
+      {/* ── Right Side ── */}
       <div className="nav-right">
-        <button className="nav-icon-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="18" height="18">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-          </svg>
+
+        {/* 🌙 Dark / Light toggle — works on DESKTOP */}
+        <button
+          className="nav-icon-btn"
+          onClick={toggleDark}
+          title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
+          {darkMode ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="1.8" width="18" height="18">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              strokeWidth="1.8" width="18" height="18">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1"  x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22"  y1="4.22"  x2="5.64"  y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1"  y1="12" x2="3"  y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+              <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+            </svg>
+          )}
         </button>
 
+        {/* A Avatar — goes to profile or login */}
         <button
           className="nav-avatar"
           onClick={() => loggedIn ? handleNav("profile") : handleNav("login")}
+          title={loggedIn ? "Go to Profile" : "Login"}
         >
           A
         </button>
 
+        {/* Hamburger — mobile only */}
         <button
           className={`nav-hamburger ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
         >
           <span /><span /><span />
         </button>
+
       </div>
 
+      {/* ── Mobile Menu ── */}
       <div className={`nav-mobile-menu ${menuOpen ? "open" : ""}`}>
         {links.map((l) => (
           <button
@@ -84,7 +164,13 @@ const Navbar = ({ onNavigate, activePage, loggedIn }) => {
             {l.label}
           </button>
         ))}
+
+        {/* Dark mode toggle inside mobile menu */}
+        <button className="nav-mobile-theme" onClick={toggleDark}>
+          {darkMode ? "☀️ Switch to Light Mode" : "🌙 Switch to Dark Mode"}
+        </button>
       </div>
+
     </nav>
   );
 };

@@ -46,10 +46,11 @@
   border-radius: var(--r2);
   padding: 28px 32px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 24px;
   position: relative;
   overflow: hidden;
+  flex-wrap: wrap;
 }
 .prof-header-card::before {
   content: '';
@@ -116,7 +117,13 @@
   box-shadow: 0 0 0 3px rgba(46,204,113,0.08);
 }
 
-.prof-actions { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.prof-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
 
 .prof-btn {
   display: inline-flex; align-items: center; gap: 6px;
@@ -256,17 +263,43 @@
 @media (max-width: 768px) {
   .prof-wrap        { padding: 90px 20px 48px; }
   .prof-header-card { flex-wrap: wrap; gap: 18px; }
-  .prof-actions     { flex-direction: row; flex-wrap: wrap; }
+  .prof-actions     { flex-direction: row; flex-wrap: wrap; width: 100%; }
   .prof-stats-row   { grid-template-columns: repeat(2, 1fr); }
   .badges-grid      { grid-template-columns: repeat(2, 1fr); }
 }
+
 @media (max-width: 540px) {
-  .prof-wrap      { padding: 84px 14px 40px; }
-  .prof-avatar    { width: 68px; height: 68px; }
-  .skill-name     { width: 100px; font-size: 13px; }
+  .prof-wrap         { padding: 84px 14px 40px; }
+  .prof-avatar       { width: 68px; height: 68px; }
+  .skill-name        { width: 100px; font-size: 13px; }
   .prof-section-card { padding: 20px 16px; }
+
+  /* Fix mobile overlap */
+  .prof-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 18px;
+  }
+  .prof-info { width: 100%; }
+  .prof-actions {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 4px;
+  }
+  .prof-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .prof-name  { font-size: 20px; }
+  .prof-tags  { flex-wrap: wrap; gap: 6px; }
+  .tag-fire   { font-size: 11px; }
 }
+
 @media (max-width: 380px) {
   .badges-grid    { grid-template-columns: 1fr; }
   .prof-stats-row { grid-template-columns: 1fr 1fr; }
+  .prof-btn       { font-size: 11px; padding: 8px 10px; }
 }
