@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg:        #080c09;
+  --bg2:       #0a110b;
+  --card:      #0f1810;
+  --card2:     #111a12;
+  --border:    #1a2e1c;
+  --border2:   #1f3522;
+  --green:     #2ecc71;
+  --green2:    #1aba60;
+  --green-dim: rgba(46, 204, 113, 0.10);
+  --red:       #ff4757;
+  --text:      #e4ede5;
+  --text2:     #6fa876;
+  --text3:     #3a5c40;
+  --fh: 'Poppins', sans-serif;
+  --fb: 'Space Grotesk', sans-serif;
+  --r:  14px;
+  --r2: 18px;
+  --tr: 0.22s ease;
+}
+
+.ana-page {
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--text);
+  width: 100%;
+  min-height: 100vh;
+}
+
+.ana-wrap {
+  padding: 100px 36px 60px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.ana-heading { margin-bottom: 28px; }
+.ana-heading h1 {
+  font-family: var(--fh);
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 700; color: var(--text);
+}
+.ana-heading p { color: var(--text2); font-size: 14px; margin-top: 4px; }
+
+.ana-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 24px 26px;
+  transition: border-color var(--tr);
+}
+.ana-card:hover { border-color: rgba(46,204,113,0.22); }
+
+.ana-card-title {
+  font-family: var(--fh);
+  font-size: 15px; font-weight: 600;
+  color: var(--text); margin-bottom: 20px;
+}
+
+/* ── ROW 1 ── */
+.ana-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-bottom: 20px;
+}
+
+.ana-stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  padding: 22px 24px 18px;
+  transition: border-color var(--tr), box-shadow var(--tr);
+}
+.ana-stat-card:hover {
+  border-color: rgba(46,204,113,0.28);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+}
+.ana-stat-icon { display: flex; color: var(--green); margin-bottom: 12px; }
+.ana-stat-val {
+  font-family: var(--fh);
+  font-size: clamp(26px, 3.5vw, 36px);
+  font-weight: 700; color: var(--green);
+  line-height: 1; margin-bottom: 6px;
+}
+.ana-stat-lbl { font-size: 12px; color: var(--text3); }
+
+/* ── ROW 2 ── */
+.ana-mid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-bottom: 20px;
+}
+
+.ana-canvas     { width: 100%; height: 240px; display: block; }
+.ana-canvas-bar { width: 100%; height: 240px; display: block; }
+
+/* ── ROW 3 ── */
+.ana-bot-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ana-canvas-radar {
+  width: 100%; aspect-ratio: 1;
+  display: block; max-height: 260px;
+}
+
+/* Donut */
+.donut-wrap {
+  display: flex; flex-direction: column; align-items: center;
+}
+.ana-canvas-donut {
+  width: 180px; height: 180px;
+  display: block; cursor: pointer;
+}
+.donut-tooltip {
+  position: absolute;
+  background: var(--card2);
+  border: 1px solid var(--border2);
+  border-radius: 8px; padding: 8px 14px;
+  font-size: 12px; pointer-events: none;
+  z-index: 10; display: flex; flex-direction: column; gap: 2px;
+  transform: translate(-50%, -110%);
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.donut-tooltip strong { color: var(--text); }
+.donut-tooltip span   { color: var(--text2); }
+.donut-legend {
+  display: flex; gap: 16px; margin-top: 16px;
+  flex-wrap: wrap; justify-content: center;
+}
+.donut-leg-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text2); cursor: default;
+}
+.leg-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%; display: inline-block; flex-shrink: 0;
+}
+
+/* Areas to Improve */
+.improve-list { display: flex; flex-direction: column; gap: 22px; }
+.improve-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 8px;
+}
+.improve-topic { font-size: 14px; font-weight: 600; color: var(--text); }
+.improve-pct   { font-size: 14px; font-weight: 700; color: var(--red); font-family: var(--fh); }
+.improve-bar {
+  width: 100%; height: 6px;
+  background: var(--border2); border-radius: 4px;
+  overflow: hidden; margin-bottom: 8px;
+}
+.improve-fill {
+  height: 100%; background: var(--red);
+  border-radius: 4px; transition: width 1s ease;
+}
+.improve-tip { font-size: 12px; color: var(--text3); line-height: 1.5; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .ana-bot-row { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .ana-mid-row   { grid-template-columns: 1fr; }
+  .ana-stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .ana-wrap      { padding: 88px 16px 48px; }
+  .ana-stats-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .ana-bot-row   { grid-template-columns: 1fr; }
+  .ana-canvas    { height: 200px; }
+  .ana-canvas-bar{ height: 200px; }
+}
+@media (max-width: 400px) {
+  .ana-wrap      { padding: 82px 12px 40px; }
+  .ana-stats-row { grid-template-columns: 1fr; }
+}
