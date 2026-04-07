@@ -1,34 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-:root {
-  --bg:         #080c09;
-  --bg2:        #0a110b;
-  --card:       #0f1810;
-  --card2:      #111a12;
-  --border:     #1a2e1c;
-  --border2:    #1f3522;
-  --green:      #2ecc71;
-  --green2:     #1aba60;
-  --green-dim:  rgba(46, 204, 113, 0.10);
-  --green-glow: rgba(46, 204, 113, 0.28);
-  --red:        #ff4757;
-  --red-dim:    rgba(255, 71, 87, 0.12);
-  --text:       #e4ede5;
-  --text2:      #6fa876;
-  --text3:      #3a5c40;
-  --fh: 'Poppins', sans-serif;
-  --fb: 'Space Grotesk', sans-serif;
-  --r:  12px;
-  --r2: 18px;
-  --tr: 0.22s ease;
-}
-
 .quiz-page {
   font-family: var(--fb);
   background: var(--bg);
   color: var(--text);
   width: 100%;
   min-height: 100vh;
+  overflow-y: auto;
 }
 
 /* ── INTRO ── */
@@ -37,7 +15,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 80px 24px 40px;
+  padding: 120px 24px 40px;
 }
 
 .quiz-intro-card {
@@ -164,8 +142,9 @@
 
 /* ── ACTIVE QUIZ ── */
 .quiz-active-wrap {
-  padding: 88px 36px 48px;
-  max-width: 1200px; margin: 0 auto;
+  padding: 120px 36px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .quiz-topbar {
@@ -284,7 +263,7 @@
 }
 
 /* sidebar */
-.quiz-sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 88px; }
+.quiz-sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 120px; }
 .qs-card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: var(--r2); padding: 20px;
@@ -317,14 +296,15 @@
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  .quiz-layout { grid-template-columns: 1fr; }
-  .quiz-sidebar { position: static; flex-direction: row; flex-wrap: wrap; }
-  .qs-card { flex: 1; min-width: 200px; }
+  .quiz-layout   { grid-template-columns: 1fr; }
+  .quiz-sidebar  { position: static; flex-direction: row; flex-wrap: wrap; }
+  .qs-card       { flex: 1; min-width: 200px; }
 }
+
 @media (max-width: 640px) {
-  .quiz-active-wrap { padding: 80px 16px 40px; }
-  .question-card { padding: 22px 16px; }
+  .quiz-active-wrap              { padding: 120px 16px 40px; }
+  .question-card                 { padding: 22px 16px; }
   .quiz-intro-card, .quiz-result-card { padding: 40px 20px; }
-  .intro-meta { gap: 8px; }
-  .result-btns { flex-direction: column; }
+  .intro-meta                    { gap: 8px; }
+  .result-btns                   { flex-direction: column; }
 }
